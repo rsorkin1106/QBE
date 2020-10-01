@@ -3,7 +3,7 @@
 Query By Example Users Guide
 By: Robert Sorkin
  
-##Table of Contents
+## Table of Contents
 
 Introduction
 
