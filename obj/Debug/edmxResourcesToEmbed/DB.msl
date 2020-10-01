@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities1">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="TestModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="TestModel.Address">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
+          <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
+          <ScalarProperty Name="Town" ColumnName="Town" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QueriesTables">
+      <EntityTypeMapping TypeName="TestModel.QueriesTable">
+        <MappingFragment StoreEntitySet="QueriesTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Query" ColumnName="Query" />
+          <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="TestModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Update_Date" ColumnName="Update Date" />
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer ID" />
+          <ScalarProperty Name="Order_ID" ColumnName="Order ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_allData">
+      <EntityTypeMapping TypeName="TestModel.vw_allData">
+        <MappingFragment StoreEntitySet="vw_allData">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
+          <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
+          <ScalarProperty Name="Town" ColumnName="Town" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="TestModel.Store.locateAllOrders" FunctionImportName="locateAllOrders">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="TestModel.locateAllOrders_Result">
+          <ScalarProperty Name="Order_ID" ColumnName="Order ID" />
+          <ScalarProperty Name="Item_Code" ColumnName="Item Code" />
+          <ScalarProperty Name="Qty_Ordered" ColumnName="Qty Ordered" />
+          <ScalarProperty Name="Unit_Price" ColumnName="Unit Price" />
+          <ScalarProperty Name="Sales_Price" ColumnName="Sales Price" />
+          <ScalarProperty Name="Customer_UOM" ColumnName="Customer UOM" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_changeAddress" FunctionName="TestModel.Store.sp_changeAddress" />
+    <FunctionImportMapping FunctionImportName="sp_changeCustomer" FunctionName="TestModel.Store.sp_changeCustomer" />
+    <FunctionImportMapping FunctionImportName="sp_insertLog" FunctionName="TestModel.Store.sp_insertLog" />
+    <FunctionImportMapping FunctionImportName="sp_viewAll" FunctionName="TestModel.Store.sp_viewAll" />
+  </EntityContainerMapping>
+</Mapping>

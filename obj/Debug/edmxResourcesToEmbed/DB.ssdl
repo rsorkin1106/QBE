@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.dbo.Address' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Customer ID" />
+    </Key>
+    <Property Name="Address Line 1" Type="varchar" MaxLength="50" />
+    <Property Name="Address Line 2" Type="varchar" MaxLength="50" />
+    <Property Name="Town" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="Zip Code" Type="varchar" MaxLength="50" />
+    <Property Name="Customer ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Contact" Type="nchar" MaxLength="10" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Test.dbo.Log' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Log">
+          <Property Name="Timestamp" Type="datetime" />
+          <Property Name="Message Level (0-4)" Type="int" />
+          <Property Name="Message Text" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.dbo.QueriesTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="QueriesTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="TypeID" Type="int" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Query" Type="varchar(max)" />
+    <Property Name="Parameters" Type="xml" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Test.ERP.OrderLines' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="OrderLines">
+          <Property Name="Item Code" Type="varchar" MaxLength="50" />
+          <Property Name="Qty Ordered" Type="decimal" Precision="3" Scale="0" />
+          <Property Name="Unit Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Sales Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Customer UOM" Type="int" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.ERP.Orders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Order ID" />
+    </Key>
+    <Property Name="Update Date" Type="datetime" />
+    <Property Name="Customer ID" Type="int" />
+    <Property Name="Order ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.dbo.vw_allData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_allData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Contact" Type="nchar" MaxLength="10" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Address Line 1" Type="varchar" MaxLength="50" />
+    <Property Name="Address Line 2" Type="varchar" MaxLength="50" />
+    <Property Name="Town" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="Zip Code" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Address_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="Customer ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="locateAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="Order ID" Type="int" Nullable="false" />
+          <Property Name="Item Code" Type="varchar" MaxLength="50" />
+          <Property Name="Qty Ordered" Type="decimal" Precision="3" Scale="0" />
+          <Property Name="Unit Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Sales Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Customer UOM" Type="int" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="sp_changeAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ad1" Type="varchar" Mode="In" />
+    <Parameter Name="ad2" Type="varchar" Mode="In" />
+    <Parameter Name="town" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="varchar" Mode="In" />
+    <Parameter Name="zip" Type="varchar" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_changeCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="varchar" Mode="In" />
+    <Parameter Name="code" Type="varchar" Mode="In" />
+    <Parameter Name="contact" Type="varchar" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_insertLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="level" Type="int" Mode="In" />
+    <Parameter Name="msg" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_viewAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="TestModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Address" EntityType="Self.Address" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Address].[Address Line 1] AS [Address Line 1], 
+    [Address].[Address Line 2] AS [Address Line 2], 
+    [Address].[Town] AS [Town], 
+    [Address].[State] AS [State], 
+    [Address].[Zip Code] AS [Zip Code], 
+    [Address].[Customer ID] AS [Customer ID]
+    FROM [dbo].[Address] AS [Address]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="QueriesTable" EntityType="Self.QueriesTable" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [QueriesTable].[ID] AS [ID], 
+    [QueriesTable].[StatusID] AS [StatusID], 
+    [QueriesTable].[TypeID] AS [TypeID], 
+    [QueriesTable].[Name] AS [Name], 
+    [QueriesTable].[Description] AS [Description], 
+    [QueriesTable].[Query] AS [Query], 
+    [QueriesTable].[Parameters] AS [Parameters], 
+    [QueriesTable].[CreateDate] AS [CreateDate], 
+    [QueriesTable].[UpdateDate] AS [UpdateDate]
+    FROM [dbo].[QueriesTable] AS [QueriesTable]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Orders" EntityType="Self.Orders" store:Type="Tables" store:Schema="ERP">
+      <DefiningQuery>SELECT 
+    [Orders].[Update Date] AS [Update Date], 
+    [Orders].[Customer ID] AS [Customer ID], 
+    [Orders].[Order ID] AS [Order ID]
+    FROM [ERP].[Orders] AS [Orders]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_allData" EntityType="Self.vw_allData" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_allData].[Name] AS [Name], 
+    [vw_allData].[Code] AS [Code], 
+    [vw_allData].[Contact] AS [Contact], 
+    [vw_allData].[ID] AS [ID], 
+    [vw_allData].[Address Line 1] AS [Address Line 1], 
+    [vw_allData].[Address Line 2] AS [Address Line 2], 
+    [vw_allData].[Town] AS [Town], 
+    [vw_allData].[State] AS [State], 
+    [vw_allData].[Zip Code] AS [Zip Code]
+    FROM [dbo].[vw_allData] AS [vw_allData]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Address_Customer" Association="Self.FK_Address_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
